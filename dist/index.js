@@ -8907,6 +8907,9 @@ async function run() {
         formData.append('keystoreAlias', keystoreAlias);
         formData.append('keystorePassword', keystorePassword);
         const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${packageName}`, formData, { headers });
+        console.log(response.statusText);
+        console.log(response.status);
+        console.log(response.data);
         core.debug(response.data);
     }
     catch (error) {

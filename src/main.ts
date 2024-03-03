@@ -48,7 +48,9 @@ export async function run(): Promise<void> {
       formData,
       { headers }
     )
-
+    console.log(response.statusText)
+    console.log(response.status)
+    console.log(response.data)
     core.debug(response.data)
   } catch (error) {
     // Fail the workflow run if an error occurs
