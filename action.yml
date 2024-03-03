@@ -38,11 +38,6 @@ inputs:
     required: true
     default: ''
 
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
-
 runs:
   using: node20
   main: dist/index.js
