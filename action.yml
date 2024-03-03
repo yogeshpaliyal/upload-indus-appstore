@@ -4,8 +4,8 @@ author: 'Yogesh Choudhary Paliyal'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'truck'
+  color: 'green'
 
 # Define your inputs here.
 inputs:
