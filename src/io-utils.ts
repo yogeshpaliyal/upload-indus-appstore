@@ -9,7 +9,6 @@ import { debug, info } from '@actions/core'
 import { promisify } from 'util'
 import { dirname } from 'path'
 
-
 export function findReleaseFiles(releaseDir: string): Dirent[] | undefined {
   const releaseFiles = fs
     .readdirSync(releaseDir, { withFileTypes: true })
@@ -43,7 +42,7 @@ function getMultiPathLCA(searchPaths: string[]): string {
 
   // split each of the search paths using the platform specific separator
   for (const searchPath of searchPaths) {
-    debug(`Using search path ${ searchPath }`)
+    debug(`Using search path ${searchPath}`)
 
     const splitSearchPath = path.normalize(searchPath).split(path.sep)
 
@@ -121,20 +120,20 @@ export async function findFilesToUpload(
     const fileStats = await stats(searchResult)
     // isDirectory() returns false for symlinks if using fs.lstat(), make sure to use fs.stat() instead
     if (!fileStats.isDirectory()) {
-      debug(`File:${ searchResult } was found using the provided searchPath`)
+      debug(`File:${searchResult} was found using the provided searchPath`)
       searchResults.push(searchResult)
 
       // detect any files that would be overwritten because of case insensitivity
       if (set.has(searchResult.toLowerCase())) {
         info(
-          `Uploads are case insensitive: ${ searchResult } was detected that it will be overwritten by another file with the same path`
+          `Uploads are case insensitive: ${searchResult} was detected that it will be overwritten by another file with the same path`
         )
       } else {
         set.add(searchResult.toLowerCase())
       }
     } else {
       debug(
-        `Removing ${ searchResult } from rawSearchResults because it is a directory`
+        `Removing ${searchResult} from rawSearchResults because it is a directory`
       )
     }
   }
@@ -148,7 +147,7 @@ export async function findFilesToUpload(
     )
     const lcaSearchPath = getMultiPathLCA(searchPaths)
     info(
-      `The least common ancestor is ${ lcaSearchPath }. This will be the root directory of the artifact`
+      `The least common ancestor is ${lcaSearchPath}. This will be the root directory of the artifact`
     )
 
     return {
