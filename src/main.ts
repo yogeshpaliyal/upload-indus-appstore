@@ -24,7 +24,7 @@ export async function run(): Promise<void> {
       Authorization: `Bearer ${apiKey}`
     }
 
-    const signingKey = path.join('signingFile', 'signingKey.jks')
+    const signingKey = path.join('signingKey.jks')
     fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
 
     const releaseFiles = findReleaseFiles(aabFile)

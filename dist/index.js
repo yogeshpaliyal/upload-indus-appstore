@@ -8892,7 +8892,7 @@ async function run() {
         const headers = {
             Authorization: `Bearer ${apiKey}`
         };
-        const signingKey = path_1.default.join('signingFile', 'signingKey.jks');
+        const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, signingKeyBase64, 'base64');
         const releaseFiles = (0, io_utils_1.findReleaseFiles)(aabFile);
         if (!releaseFiles || releaseFiles.length || releaseFiles.length !== 1) {
