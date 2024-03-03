@@ -30,6 +30,7 @@ export async function run(): Promise<void> {
     fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
 
     const releaseFiles = await findFilesToUpload(aabFile)
+    core.debug(`Release files: ${JSON.stringify(releaseFiles)}`)
     if (!releaseFiles.filesToUpload || !releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
       throw new Error('No release files found')
     }
