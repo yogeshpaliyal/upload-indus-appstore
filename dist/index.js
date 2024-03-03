@@ -8702,10 +8702,10 @@ const fs_1 = __importDefault(__nccwpck_require__(7147));
 const glob = __importStar(__nccwpck_require__(8090));
 const fs_2 = __nccwpck_require__(7147);
 const path = __importStar(__nccwpck_require__(1017));
-const stats = (0, util_1.promisify)(fs_2.stat);
 const core_1 = __nccwpck_require__(2186);
 const util_1 = __nccwpck_require__(3837);
 const path_1 = __nccwpck_require__(1017);
+const stats = (0, util_1.promisify)(fs_2.stat);
 function findReleaseFiles(releaseDir) {
     const releaseFiles = fs_1.default
         .readdirSync(releaseDir, { withFileTypes: true })

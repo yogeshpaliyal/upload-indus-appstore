@@ -3,11 +3,12 @@ import fs from 'fs'
 import * as glob from '@actions/glob'
 import { stat } from 'fs'
 import * as path from 'path'
-
-const stats = promisify(stat)
 import { debug, info } from '@actions/core'
 import { promisify } from 'util'
 import { dirname } from 'path'
+
+const stats = promisify(stat)
+
 
 export function findReleaseFiles(releaseDir: string): Dirent[] | undefined {
   const releaseFiles = fs
