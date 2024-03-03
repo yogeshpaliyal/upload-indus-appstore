@@ -59,7 +59,7 @@ jobs:
         with:
           apiKey: ${{secrets.INDUS_API_KEY}}
           packageName: com.yogeshpaliyal.keypass
-          aabFile: ../tempFiles/*.aab
+          aabFile: ./tempFiles/*.aab
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           keystoreAlias: ${{ secrets.ALIAS }}
           keystorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
