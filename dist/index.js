@@ -8895,12 +8895,12 @@ async function run() {
         core.debug(`Current Path ${__dirname}`);
         const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, signingKeyBase64, 'base64');
-        const releaseFiles = (0, io_utils_1.findReleaseFiles)(aabFile);
-        if (!releaseFiles || releaseFiles.length || releaseFiles.length !== 1) {
+        const releaseFiles = await (0, io_utils_1.findFilesToUpload)(aabFile);
+        if (!releaseFiles.filesToUpload || releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
             throw new Error('No release files found');
         }
         const formData = new FormData();
-        formData.append('file', fs.createReadStream(releaseFiles[0].path));
+        formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
         formData.append('file', fs.createReadStream(signingKey));
         formData.append('keyPassword', keyPassword);
         formData.append('keystoreAlias', keystoreAlias);

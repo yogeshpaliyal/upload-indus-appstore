@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
 import path from 'path'
-import { findReleaseFiles } from './io-utils'
+import { findFilesToUpload, findReleaseFiles } from './io-utils'
 
 /**
  * The main function for the action.
@@ -29,14 +29,14 @@ export async function run(): Promise<void> {
     const signingKey = path.join('signingKey.jks')
     fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
 
-    const releaseFiles = findReleaseFiles(aabFile)
-    if (!releaseFiles || releaseFiles.length || releaseFiles.length !== 1) {
+    const releaseFiles = await findFilesToUpload(aabFile)
+    if (!releaseFiles.filesToUpload || releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
       throw new Error('No release files found')
     }
 
 
     const formData = new FormData()
-    formData.append('file', fs.createReadStream(releaseFiles[0].path))
+    formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]))
     formData.append('file', fs.createReadStream(signingKey))
     formData.append('keyPassword', keyPassword)
     formData.append('keystoreAlias', keystoreAlias)
