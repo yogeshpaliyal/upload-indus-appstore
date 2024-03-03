@@ -8914,6 +8914,7 @@ async function run() {
     }
     catch (error) {
         // Fail the workflow run if an error occurs
+        console.error(error);
         if (error instanceof Error)
             core.setFailed(error.message);
     }
