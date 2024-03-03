@@ -1,6 +1,6 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'upload-indus-appstore'
+description: 'Upload AAB file to Indus Appstore'
+author: 'Yogesh Choudhary Paliyal'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,10 +9,34 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  apiKey:
+    description: 'Indus App Store API Key'
     required: true
     default: '1000'
+  packageName:
+    description: 'App Package Name'
+    required: true
+    default: ''
+  aabFile:
+    description: 'AAB File path'
+    required: true
+    default: '1000'
+  signingKeyBase64:
+    description: 'Key Store File Base 64'
+    required: true
+    default: ''
+  keyPassword:
+    description: 'Key Password'
+    required: true
+    default: ''
+  keystoreAlias:
+    description: 'Keystore Alias'
+    required: true
+    default: ''
+  keystorePassword:
+    description: 'Keystore Alias Password'
+    required: true
+    default: ''
 
 # Define your outputs here.
 outputs:
