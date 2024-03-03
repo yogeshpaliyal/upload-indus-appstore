@@ -1,10 +1,7 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
 import * as fs from 'fs'
 import path from 'path'
-import { readFileSync, lstatSync } from 'fs'
-const axios = require('axios')
-const FormData = require('form-data')
+import { findReleaseFiles } from './io-utils'
 
 /**
  * The main function for the action.
@@ -12,6 +9,9 @@ const FormData = require('form-data')
  */
 export async function run(): Promise<void> {
   try {
+    const axios = require('axios')
+    const FormData = require('form-data')
+
     const apiKey: string = core.getInput('apiKey')
     const packageName: string = core.getInput('packageName')
     const aabFile: string = core.getInput('aabFile')
@@ -20,8 +20,6 @@ export async function run(): Promise<void> {
     const keystoreAlias: string = core.getInput('keystoreAlias')
     const keystorePassword: string = core.getInput('keystorePassword')
 
-    const axios = require('axios')
-
     const headers = {
       Authorization: `Bearer ${apiKey}`
     }
@@ -29,8 +27,13 @@ export async function run(): Promise<void> {
     const signingKey = path.join('signingFile', 'signingKey.jks')
     fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
 
+    const releaseFiles = findReleaseFiles(aabFile)
+    if (!releaseFiles || releaseFiles.length || releaseFiles.length !== 1) {
+      throw new Error('No release files found')
+    }
+
     const formData = new FormData()
-    formData.append('file', fs.createReadStream(aabFile))
+    formData.append('file', fs.createReadStream(releaseFiles[0].path))
     formData.append('file', fs.createReadStream(signingKey))
     formData.append('keyPassword', keyPassword)
     formData.append('keystoreAlias', keystoreAlias)
