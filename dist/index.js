@@ -8896,7 +8896,7 @@ async function run() {
         const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, signingKeyBase64, 'base64');
         const releaseFiles = await (0, io_utils_1.findFilesToUpload)(aabFile);
-        if (!releaseFiles.filesToUpload || releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
+        if (!releaseFiles.filesToUpload || !releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
             throw new Error('No release files found');
         }
         const formData = new FormData();
