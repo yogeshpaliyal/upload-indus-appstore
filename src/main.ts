@@ -24,6 +24,8 @@ export async function run(): Promise<void> {
       Authorization: `Bearer ${apiKey}`
     }
 
+    core.debug(`Current Path ${__dirname}`)
+
     const signingKey = path.join('signingKey.jks')
     fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
 
@@ -31,6 +33,7 @@ export async function run(): Promise<void> {
     if (!releaseFiles || releaseFiles.length || releaseFiles.length !== 1) {
       throw new Error('No release files found')
     }
+
 
     const formData = new FormData()
     formData.append('file', fs.createReadStream(releaseFiles[0].path))

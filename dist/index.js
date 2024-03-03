@@ -8892,6 +8892,7 @@ async function run() {
         const headers = {
             Authorization: `Bearer ${apiKey}`
         };
+        core.debug(`Current Path ${__dirname}`);
         const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, signingKeyBase64, 'base64');
         const releaseFiles = (0, io_utils_1.findReleaseFiles)(aabFile);
