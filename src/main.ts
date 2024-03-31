@@ -13,7 +13,7 @@ export async function run(): Promise<void> {
     const type: string = core.getInput('type')
 
     const validators: IValidator<BaseProps>[] = [new UploadAAb(), new UploadApk()]
-
+    console.log("Type is ", type);
     for (let i = 0; i < validators.length; i++) {
       const validator = validators[i]
       if (validator.type == type) {
