@@ -1,7 +1,8 @@
 import * as core from '@actions/core'
-import * as fs from 'fs'
-import path from 'path'
-import { findFilesToUpload, findReleaseFiles } from './io-utils'
+import { UploadAAb } from './validator/uploadAab'
+import { ActionType, BaseProps } from './constants'
+import { UploadApk } from './validator/UploadApk'
+import { IValidator } from './validator/IValidator'
 
 /**
  * The main function for the action.
@@ -9,49 +10,21 @@ import { findFilesToUpload, findReleaseFiles } from './io-utils'
  */
 export async function run(): Promise<void> {
   try {
-    const axios = require('axios')
-    const FormData = require('form-data')
+    const type: string = core.getInput('type')
 
-    const apiKey: string = core.getInput('apiKey')
-    const packageName: string = core.getInput('packageName')
-    const aabFile: string = core.getInput('aabFile')
-    const signingKeyBase64: string = core.getInput('signingKeyBase64')
-    const keyPassword: string = core.getInput('keyPassword')
-    const keystoreAlias: string = core.getInput('keystoreAlias')
-    const keystorePassword: string = core.getInput('keystorePassword')
+    const validators: IValidator<BaseProps>[] = [new UploadAAb(), new UploadApk()]
 
-    const headers = {
-      Authorization: `Bearer ${apiKey}`
+    for (let i = 0; i < validators.length; i++) {
+      const validator = validators[i]
+      if (validator.type == type) {
+        const props = validator.validateVariables()
+        validator.createAntHitRequest(props)
+        return
+      }
     }
 
-    core.debug(`Current Path ${__dirname}`)
+    throw new Error(`type is not valid from these type ${ActionType}`)
 
-    const signingKey = path.join('signingKey.jks')
-    fs.writeFileSync(signingKey, signingKeyBase64, 'base64')
-
-    const releaseFiles = await findFilesToUpload(aabFile)
-    core.debug(`Release files: ${JSON.stringify(releaseFiles)}`)
-    if (!releaseFiles.filesToUpload || !releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
-      throw new Error('No release files found')
-    }
-
-
-    const formData = new FormData()
-    formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]))
-    formData.append('file', fs.createReadStream(signingKey))
-    formData.append('keyPassword', keyPassword)
-    formData.append('keystoreAlias', keystoreAlias)
-    formData.append('keystorePassword', keystorePassword)
-
-    const response = await axios.post(
-      `https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${packageName}`,
-      formData,
-      { headers }
-    )
-    console.log(response.statusText)
-    console.log(response.status)
-    console.log(response.data)
-    core.debug(response.data)
   } catch (error) {
     // Fail the workflow run if an error occurs
     console.error(error)
