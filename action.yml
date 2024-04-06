@@ -9,6 +9,10 @@ branding:
 
 # Define your inputs here.
 inputs:
+  type:
+    description: 'Action type UPLOAD_AAB | UPLOAD_APK | UPLOAD_APKs | UPDATE_METADATA | GET_APP_STATS | GET_APP_DETAILS | GET_APP_VERSIONS'
+    required: true
+    default: '1000'
   apiKey:
     description: 'Indus App Store API Key'
     required: true
@@ -19,23 +23,23 @@ inputs:
     default: ''
   aabFile:
     description: 'AAB File path'
-    required: true
+    required: false
     default: '1000'
   signingKeyBase64:
     description: 'Key Store File Base 64'
-    required: true
+    required: false
     default: ''
   keyPassword:
     description: 'Key Password'
-    required: true
+    required: false
     default: ''
   keystoreAlias:
     description: 'Keystore Alias'
-    required: true
+    required: false
     default: ''
   keystorePassword:
     description: 'Keystore Alias Password'
-    required: true
+    required: false
     default: ''
 
 runs:
