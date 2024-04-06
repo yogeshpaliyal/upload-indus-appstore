@@ -57,8 +57,8 @@ jobs:
         id: test-action
         uses: ./
         with:
+          type: "UPLOAD_AAB"
           apiKey: ${{secrets.INDUS_API_KEY}}
-          packageName: com.yogeshpaliyal.keypass
           aabFile: ./tempFiles/*.aab
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           keystoreAlias: ${{ secrets.ALIAS }}
