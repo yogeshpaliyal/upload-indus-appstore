@@ -16,7 +16,6 @@ export async function run(): Promise<void> {
       new UploadAAb(),
       new UploadApk()
     ]
-    console.log('Type is ', type)
     for (let i = 0; i < validators.length; i++) {
       const validator = validators[i]
       if (validator.type == type) {
@@ -26,7 +25,9 @@ export async function run(): Promise<void> {
       }
     }
 
-    throw new Error(`type is not valid from these type ${ActionType}`)
+    throw new Error(
+      `type is not valid from these type ${Object.keys(ActionType)}`
+    )
   } catch (error) {
     // Fail the workflow run if an error occurs
     console.error(error)
