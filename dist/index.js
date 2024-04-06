@@ -8903,7 +8903,6 @@ async function run() {
             new uploadAab_1.UploadAAb(),
             new UploadApk_1.UploadApk()
         ];
-        console.log('Type is ', type);
         for (let i = 0; i < validators.length; i++) {
             const validator = validators[i];
             if (validator.type == type) {
@@ -8912,7 +8911,7 @@ async function run() {
                 return;
             }
         }
-        throw new Error(`type is not valid from these type ${constants_1.ActionType}`);
+        throw new Error(`type is not valid from these type ${Object.keys(constants_1.ActionType)}`);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
