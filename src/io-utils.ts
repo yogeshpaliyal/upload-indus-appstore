@@ -9,7 +9,6 @@ import { dirname } from 'path'
 
 const stats = promisify(stat)
 
-
 export function findReleaseFiles(releaseDir: string): Dirent[] | undefined {
   const releaseFiles = fs
     .readdirSync(releaseDir, { withFileTypes: true })

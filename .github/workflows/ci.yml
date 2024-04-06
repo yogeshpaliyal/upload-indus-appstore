@@ -57,6 +57,7 @@ jobs:
         id: test-action
         uses: ./
         with:
+          type: "UPLOAD_AAB"
           apiKey: ${{secrets.INDUS_API_KEY}}
           packageName: com.yogeshpaliyal.keypass
           aabFile: ./tempFiles/*.aab
@@ -67,4 +68,4 @@ jobs:
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+        run: echo "Success"
