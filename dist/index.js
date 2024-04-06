@@ -8665,6 +8665,27 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 9042:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ActionType = void 0;
+var ActionType;
+(function (ActionType) {
+    ActionType["UPLOAD_AAB"] = "UPLOAD_AAB";
+    ActionType["UPLOAD_APK"] = "UPLOAD_APK";
+    ActionType["UPLOAD_APKs"] = "UPLOAD_APKs";
+    ActionType["UPDATE_METADATA"] = "UPDATE_METADATA";
+    ActionType["GET_APP_STATS"] = "GET_APP_STATS";
+    ActionType["GET_APP_DETAILS"] = "GET_APP_DETAILS";
+    ActionType["GET_APP_VERSIONS"] = "GET_APP_VERSIONS";
+})(ActionType || (exports.ActionType = ActionType = {}));
+
+
+/***/ }),
+
 /***/ 1153:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -8865,52 +8886,33 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const fs = __importStar(__nccwpck_require__(7147));
-const path_1 = __importDefault(__nccwpck_require__(1017));
-const io_utils_1 = __nccwpck_require__(1153);
+const uploadAab_1 = __nccwpck_require__(7956);
+const constants_1 = __nccwpck_require__(9042);
+const UploadApk_1 = __nccwpck_require__(1670);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
-        const axios = __nccwpck_require__(8757);
-        const FormData = __nccwpck_require__(4334);
-        const apiKey = core.getInput('apiKey');
-        const packageName = core.getInput('packageName');
-        const aabFile = core.getInput('aabFile');
-        const signingKeyBase64 = core.getInput('signingKeyBase64');
-        const keyPassword = core.getInput('keyPassword');
-        const keystoreAlias = core.getInput('keystoreAlias');
-        const keystorePassword = core.getInput('keystorePassword');
-        const headers = {
-            Authorization: `Bearer ${apiKey}`
-        };
-        core.debug(`Current Path ${__dirname}`);
-        const signingKey = path_1.default.join('signingKey.jks');
-        fs.writeFileSync(signingKey, signingKeyBase64, 'base64');
-        const releaseFiles = await (0, io_utils_1.findFilesToUpload)(aabFile);
-        core.debug(`Release files: ${JSON.stringify(releaseFiles)}`);
-        if (!releaseFiles.filesToUpload || !releaseFiles.filesToUpload.length || releaseFiles.filesToUpload.length !== 1) {
-            throw new Error('No release files found');
+        const type = core.getInput('type');
+        const validators = [
+            new uploadAab_1.UploadAAb(),
+            new UploadApk_1.UploadApk()
+        ];
+        console.log('Type is ', type);
+        for (let i = 0; i < validators.length; i++) {
+            const validator = validators[i];
+            if (validator.type == type) {
+                const props = validator.validateVariables();
+                validator.createAntHitRequest(props);
+                return;
+            }
         }
-        const formData = new FormData();
-        formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
-        formData.append('file', fs.createReadStream(signingKey));
-        formData.append('keyPassword', keyPassword);
-        formData.append('keystoreAlias', keystoreAlias);
-        formData.append('keystorePassword', keystorePassword);
-        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${packageName}`, formData, { headers });
-        console.log(response.statusText);
-        console.log(response.status);
-        console.log(response.data);
-        core.debug(response.data);
+        throw new Error(`type is not valid from these type ${constants_1.ActionType}`);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -8920,6 +8922,245 @@ async function run() {
     }
 }
 exports.run = run;
+
+
+/***/ }),
+
+/***/ 1314:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.validateStringParameter = void 0;
+function validateStringParameter(keyName, inputValue) {
+    if (!inputValue && !inputValue.length) {
+        throw new Error(`${keyName} value is undefined: actual value ${inputValue}`);
+    }
+}
+exports.validateStringParameter = validateStringParameter;
+
+
+/***/ }),
+
+/***/ 3153:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.IValidator = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const utils_1 = __nccwpck_require__(1314);
+class IValidator {
+    validateVariables() {
+        const apiKey = core.getInput('apiKey');
+        (0, utils_1.validateStringParameter)('apiKey', apiKey);
+        return { apiKey };
+    }
+    async createAntHitRequest(parameters) {
+    }
+}
+exports.IValidator = IValidator;
+
+
+/***/ }),
+
+/***/ 1670:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadApk = void 0;
+const constants_1 = __nccwpck_require__(9042);
+const IValidator_1 = __nccwpck_require__(3153);
+const core = __importStar(__nccwpck_require__(2186));
+const fs = __importStar(__nccwpck_require__(7147));
+const io_utils_1 = __nccwpck_require__(1153);
+const utils_1 = __nccwpck_require__(1314);
+class UploadApk extends IValidator_1.IValidator {
+    type = constants_1.ActionType.UPLOAD_AAB;
+    validateVariables() {
+        const data = super.validateVariables();
+        const packageName = core.getInput('packageName');
+        const apkFile = core.getInput('apkFile');
+        (0, utils_1.validateStringParameter)('packageName', packageName);
+        (0, utils_1.validateStringParameter)('apkFile', apkFile);
+        return {
+            ...data,
+            packageName,
+            apkFile
+        };
+    }
+    async createAntHitRequest(props) {
+        const headers = {
+            Authorization: `Bearer ${props.apiKey}`
+        };
+        const releaseFiles = await (0, io_utils_1.findFilesToUpload)(props.apkFile);
+        core.debug(`Release files: ${JSON.stringify(releaseFiles)}`);
+        if (!releaseFiles.filesToUpload ||
+            !releaseFiles.filesToUpload.length ||
+            releaseFiles.filesToUpload.length !== 1) {
+            throw new Error('No release files found');
+        }
+        const axios = __nccwpck_require__(8757);
+        const FormData = __nccwpck_require__(4334);
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
+        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/apk/upgrade/${props.packageName}`, formData, { headers });
+        console.log(response.statusText);
+        console.log(response.status);
+        console.log(response.data);
+        core.debug(response.data);
+    }
+}
+exports.UploadApk = UploadApk;
+
+
+/***/ }),
+
+/***/ 7956:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadAAb = void 0;
+const constants_1 = __nccwpck_require__(9042);
+const IValidator_1 = __nccwpck_require__(3153);
+const core = __importStar(__nccwpck_require__(2186));
+const fs = __importStar(__nccwpck_require__(7147));
+const path_1 = __importDefault(__nccwpck_require__(1017));
+const io_utils_1 = __nccwpck_require__(1153);
+const utils_1 = __nccwpck_require__(1314);
+class UploadAAb extends IValidator_1.IValidator {
+    type = constants_1.ActionType.UPLOAD_AAB;
+    validateVariables() {
+        const data = super.validateVariables();
+        const packageName = core.getInput('packageName');
+        const aabFile = core.getInput('aabFile');
+        const signingKeyBase64 = core.getInput('signingKeyBase64');
+        const keyPassword = core.getInput('keyPassword');
+        const keystoreAlias = core.getInput('keystoreAlias');
+        const keystorePassword = core.getInput('keystorePassword');
+        (0, utils_1.validateStringParameter)('packageName', packageName);
+        (0, utils_1.validateStringParameter)('aabFile', aabFile);
+        (0, utils_1.validateStringParameter)('signingKeyBase64', signingKeyBase64);
+        (0, utils_1.validateStringParameter)('keyPassword', keyPassword);
+        (0, utils_1.validateStringParameter)('keystoreAlias', keystoreAlias);
+        (0, utils_1.validateStringParameter)('keystorePassword', keystorePassword);
+        return {
+            ...data,
+            packageName,
+            aabFile,
+            signingKeyBase64,
+            keyPassword,
+            keystoreAlias,
+            keystorePassword
+        };
+    }
+    async createAntHitRequest(props) {
+        const headers = {
+            Authorization: `Bearer ${props.apiKey}`
+        };
+        const signingKey = path_1.default.join('signingKey.jks');
+        fs.writeFileSync(signingKey, props.signingKeyBase64, 'base64');
+        const releaseFiles = await (0, io_utils_1.findFilesToUpload)(props.aabFile);
+        core.debug(`Release files: ${JSON.stringify(releaseFiles)}`);
+        if (!releaseFiles.filesToUpload ||
+            !releaseFiles.filesToUpload.length ||
+            releaseFiles.filesToUpload.length !== 1) {
+            throw new Error('No release files found');
+        }
+        const axios = __nccwpck_require__(8757);
+        const FormData = __nccwpck_require__(4334);
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
+        formData.append('file', fs.createReadStream(signingKey));
+        formData.append('keyPassword', props.keyPassword);
+        formData.append('keystoreAlias', props.keystoreAlias);
+        formData.append('keystorePassword', props.keystorePassword);
+        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${props.packageName}`, formData, { headers });
+        console.log(response.statusText);
+        console.log(response.status);
+        console.log(response.data);
+        core.debug(response.data);
+    }
+}
+exports.UploadAAb = UploadAAb;
 
 
 /***/ }),
