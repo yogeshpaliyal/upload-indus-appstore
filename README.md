@@ -8,25 +8,26 @@
 Upload Android AAB file to Indus App Store.
 
 
-### Inputs
-| name             | description                                                                                                                             | default value |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| apiKey           | API Key for Indus App Store, you can get it from Indus AppStore DevTools page                                                           |               |
-| aabFilePath      | Path to the AAB file                                                                                                                    |               |
-| packageName      | Package Name of the App                                                                                                                 |               |
-| signingKeyBase64 | Base64 encoded signing key file (.jks), you can use [Base64 Guru](https://base64.guru/converter/encode/file) to create base64 from file |               |
-| keyPassword      | Password for the signing key file                                                                                                       |               |
-| keystoreAlias    | Alias for the signing key file                                                                                                          |               |
-| keystorePassword | Password for the alias file                                                                                                             |               |
+## Upload AAB File
+####  Inputs
+| name             | description                                                                                                                             |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| type | UPLOAD_AAB |
+| apiKey           | API Key for Indus App Store, you can get it from Indus AppStore DevTools page                                                           |
+| packageName      | Package Name of the App                                                                                                                 |
+| aabFilePath      | Path to the AAB file                                                                                                                    |
+| signingKeyBase64 | Base64 encoded signing key file (.jks), you can use [Base64 Guru](https://base64.guru/converter/encode/file) to create base64 from file |
+| keyPassword      | Password for the signing key file                                                                                                       |
+| keystoreAlias    | Alias for the signing key file                                                                                                          |
+| keystorePassword | Password for the alias file                
 
-
-
-### Example
+#### Example
 ```yaml
   - name: Upload App to Indus App Store
     id: upload-indus-app-store
-    uses: ./
+    uses: yogeshpaliyal/upload-indus-appstore@<Latest Version>
     with:
+      type: "UPLOAD_AAB"
       apiKey: ${{secrets.INDUS_API_KEY}}
       packageName: com.yogeshpaliyal.keypass
       aabFile: ./tempFiles/*.aab
@@ -34,6 +35,37 @@ Upload Android AAB file to Indus App Store.
       keystoreAlias: ${{ secrets.ALIAS }}
       keystorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
       keyPassword: ${{ secrets.KEY_PASSWORD }}
+```
+
+
+## Get App Details
+####  Inputs
+| name             | description                                                                                                                             |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| type | GET_APP_DETAILS |
+| apiKey           | API Key for Indus App Store, you can get it from Indus AppStore DevTools page                                                           |
+| packageName      | Package Name of the App                                                                                                                 |
+
+#### Output
+| name             | description                                                                                                                             |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| result | Get App Detail as description | 
+
+
+
+#### Example
+```yaml
+  - name: Get App Details From Indus App Store
+    id: upload-indus-app-store
+    uses: yogeshpaliyal/upload-indus-appstore@<Latest Version>
+    with:
+      type: "GET_APP_DETAILS"
+      apiKey: ${{secrets.INDUS_API_KEY}}
+      packageName: com.yogeshpaliyal.keypass
+
+  - name: Print Output
+        id: output
+        run: echo ${{ steps.upload-indus-app-store.outputs.result }}
 ```
 
 
