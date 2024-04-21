@@ -69,6 +69,37 @@ Upload Android AAB file to Indus App Store.
 ```
 
 
+## Get App Stats
+####  Inputs
+| name             | description                                                                                                                             |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| type | GET_APP_STATS |
+| apiKey           | API Key for Indus App Store, you can get it from Indus AppStore DevTools page                                                           |
+| packageName      | Package Name of the App                                                                                                                 |
+
+#### Output
+| name             | description                                                                                                                             |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| result | Get App Detail as description | 
+
+
+
+#### Example
+```yaml
+  - name: Get App Stats From Indus App Store
+    id: upload-indus-app-store
+    uses: yogeshpaliyal/upload-indus-appstore@<Latest Version>
+    with:
+      type: "GET_APP_STATS"
+      apiKey: ${{secrets.INDUS_API_KEY}}
+      packageName: com.yogeshpaliyal.keypass
+
+  - name: Print Output
+        id: output
+        run: echo ${{ steps.upload-indus-app-store.outputs.result }}
+```
+
+
 ### Open for Contribution
 If you have any idea or want to contribute to this action, feel free to open an issue or PR.
 
