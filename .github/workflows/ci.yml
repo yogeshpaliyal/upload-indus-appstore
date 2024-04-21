@@ -53,19 +53,27 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
+      # - name: Test Local Action
+      #   id: test-action
+      #   uses: ./
+      #   with:
+      #     type: "UPLOAD_AAB"
+      #     apiKey: ${{secrets.INDUS_API_KEY}}
+      #     packageName: com.yogeshpaliyal.keypass
+      #     aabFile: ./tempFiles/*.aab
+      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+      #     keystoreAlias: ${{ secrets.ALIAS }}
+      #     keystorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Test Get App Detail
         id: test-action
         uses: ./
         with:
-          type: "UPLOAD_AAB"
+          type: "GET_APP_DETAILS"
           apiKey: ${{secrets.INDUS_API_KEY}}
           packageName: com.yogeshpaliyal.keypass
-          aabFile: ./tempFiles/*.aab
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          keystoreAlias: ${{ secrets.ALIAS }}
-          keystorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Print Output
         id: output
-        run: echo "Success"
+        run: echo ${{ steps.test-action.outputs.result }}  "Success"

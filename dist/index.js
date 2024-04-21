@@ -8892,6 +8892,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const uploadAab_1 = __nccwpck_require__(7956);
 const constants_1 = __nccwpck_require__(9042);
 const UploadApk_1 = __nccwpck_require__(1670);
+const getAppDetail_1 = __nccwpck_require__(695);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -8901,7 +8902,8 @@ async function run() {
         const type = core.getInput('type');
         const validators = [
             new uploadAab_1.UploadAAb(),
-            new UploadApk_1.UploadApk()
+            new UploadApk_1.UploadApk(),
+            new getAppDetail_1.GetAppDetail()
         ];
         for (let i = 0; i < validators.length; i++) {
             const validator = validators[i];
@@ -9061,6 +9063,69 @@ class UploadApk extends IValidator_1.IValidator {
     }
 }
 exports.UploadApk = UploadApk;
+
+
+/***/ }),
+
+/***/ 695:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetAppDetail = void 0;
+const constants_1 = __nccwpck_require__(9042);
+const IValidator_1 = __nccwpck_require__(3153);
+const core = __importStar(__nccwpck_require__(2186));
+const utils_1 = __nccwpck_require__(1314);
+class GetAppDetail extends IValidator_1.IValidator {
+    type = constants_1.ActionType.GET_APP_DETAILS;
+    validateVariables() {
+        const data = super.validateVariables();
+        const packageName = core.getInput('packageName');
+        (0, utils_1.validateStringParameter)('packageName', packageName);
+        return {
+            ...data,
+            packageName,
+        };
+    }
+    async createAntHitRequest(props) {
+        const headers = {
+            Authorization: `Bearer ${props.apiKey}`
+        };
+        const axios = __nccwpck_require__(8757);
+        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`, { headers });
+        console.log(response.statusText);
+        console.log(response.status);
+        console.log(response.data);
+        core.debug(response.data);
+        core.setOutput("result", response.data);
+    }
+}
+exports.GetAppDetail = GetAppDetail;
 
 
 /***/ }),
