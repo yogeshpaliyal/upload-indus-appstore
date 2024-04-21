@@ -1,15 +1,15 @@
+# Upload-Indus-AppStore
+
 ![Upload-Indus-Appstore](https://github.com/yogeshpaliyal/upload-indus-appstore/assets/9381846/3cd8c2f6-4aa8-4f17-a28e-4af7e6239b84)
 
-
- <div style="display: inline-block"  align="center">
-<h1>Upload-Indus-AppStore</h1>
- </div>
 
 Upload Android AAB file to Indus App Store.
 
 
 ## Upload AAB File
+
 ####  Inputs
+
 | name             | description                                                                                                                             |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | type | UPLOAD_AAB |
@@ -22,6 +22,7 @@ Upload Android AAB file to Indus App Store.
 | keystorePassword | Password for the alias file                
 
 #### Example
+
 ```yaml
   - name: Upload App to Indus App Store
     id: upload-indus-app-store
@@ -39,7 +40,9 @@ Upload Android AAB file to Indus App Store.
 
 
 ## Get App Details
+
 ####  Inputs
+
 | name             | description                                                                                                                             |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | type | GET_APP_DETAILS |
@@ -47,6 +50,7 @@ Upload Android AAB file to Indus App Store.
 | packageName      | Package Name of the App                                                                                                                 |
 
 #### Output
+
 | name             | description                                                                                                                             |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | result | Get App Detail as description | 
@@ -54,6 +58,7 @@ Upload Android AAB file to Indus App Store.
 
 
 #### Example
+
 ```yaml
   - name: Get App Details From Indus App Store
     id: upload-indus-app-store
@@ -70,7 +75,9 @@ Upload Android AAB file to Indus App Store.
 
 
 ## Get App Stats
+
 ####  Inputs
+
 | name             | description                                                                                                                             |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | type | GET_APP_STATS |
@@ -78,6 +85,7 @@ Upload Android AAB file to Indus App Store.
 | packageName      | Package Name of the App                                                                                                                 |
 
 #### Output
+
 | name             | description                                                                                                                             |
 |------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | result | Get App Detail as description | 
@@ -85,6 +93,7 @@ Upload Android AAB file to Indus App Store.
 
 
 #### Example
+
 ```yaml
   - name: Get App Stats From Indus App Store
     id: upload-indus-app-store
@@ -101,6 +110,7 @@ Upload Android AAB file to Indus App Store.
 
 
 ### Open for Contribution
+
 If you have any idea or want to contribute to this action, feel free to open an issue or PR.
 
 
