@@ -1,9 +1,6 @@
 import { ActionType, BaseProps } from 'src/constants'
 import { IValidator } from './IValidator'
 import * as core from '@actions/core'
-import * as fs from 'fs'
-import path from 'path'
-import { findFilesToUpload, findReleaseFiles } from '../io-utils'
 import { validateStringParameter } from 'src/utils'
 
 export interface GetAppDetailProps extends BaseProps {
@@ -11,7 +8,7 @@ export interface GetAppDetailProps extends BaseProps {
 }
 
 export class GetAppDetail extends IValidator<GetAppDetailProps> {
-  public type: ActionType = ActionType.UPLOAD_AAB
+  public type: ActionType = ActionType.GET_APP_DETAILS
 
   public validateVariables(): GetAppDetailProps {
     const data = super.validateVariables()

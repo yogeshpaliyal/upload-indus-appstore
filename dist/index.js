@@ -9102,7 +9102,7 @@ const IValidator_1 = __nccwpck_require__(3153);
 const core = __importStar(__nccwpck_require__(2186));
 const utils_1 = __nccwpck_require__(1314);
 class GetAppDetail extends IValidator_1.IValidator {
-    type = constants_1.ActionType.UPLOAD_AAB;
+    type = constants_1.ActionType.GET_APP_DETAILS;
     validateVariables() {
         const data = super.validateVariables();
         const packageName = core.getInput('packageName');
