@@ -66,14 +66,14 @@ jobs:
       #     keystorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
       #     keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Test Get App Detail
+      - name: Test Get App Versions
         id: test-action
         uses: ./
         with:
-          type: "GET_APP_STATS"
+          type: "GET_APP_VERSIONS"
           apiKey: ${{secrets.INDUS_API_KEY}}
           packageName: com.yogeshpaliyal.keypass
 
       - name: Print Output
         id: output
-        run: echo ${{ steps.test-action.outputs.result }}  "Success"
+        run: echo ${{ steps.test-action.outputs.result }}
