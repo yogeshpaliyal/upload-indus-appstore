@@ -9117,9 +9117,7 @@ class GetAppDetail extends IValidator_1.IValidator {
             Authorization: `Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const FormData = __nccwpck_require__(4334);
-        const formData = new FormData();
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`, formData, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);

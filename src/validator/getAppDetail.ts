@@ -29,12 +29,9 @@ export class GetAppDetail extends IValidator<GetAppDetailProps> {
 
 
     const axios = require('axios')
-    const FormData = require('form-data')
-    const formData = new FormData()
     
     const response = await axios.get(
       `https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`,
-      formData,
       { headers }
     )
     console.log(response.statusText)
