@@ -3,6 +3,7 @@ import { UploadAAb } from './validator/uploadAab'
 import { ActionType, BaseProps } from './constants'
 import { UploadApk } from './validator/UploadApk'
 import { IValidator } from './validator/IValidator'
+import { GetAppDetail } from './validator/getAppDetail'
 
 /**
  * The main function for the action.
@@ -14,7 +15,8 @@ export async function run(): Promise<void> {
 
     const validators: IValidator<BaseProps>[] = [
       new UploadAAb(),
-      new UploadApk()
+      new UploadApk(),
+      new GetAppDetail()
     ]
     for (let i = 0; i < validators.length; i++) {
       const validator = validators[i]
