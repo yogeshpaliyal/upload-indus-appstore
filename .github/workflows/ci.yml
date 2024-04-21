@@ -70,7 +70,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          type: "GET_APP_DETAILS"
+          type: "GET_APP_STATS"
           apiKey: ${{secrets.INDUS_API_KEY}}
           packageName: com.yogeshpaliyal.keypass
 
