@@ -5,6 +5,7 @@ import { UploadApk } from './validator/UploadApk'
 import { IValidator } from './validator/IValidator'
 import { GetAppDetail } from './validator/getAppDetail'
 import { GetAppStats } from './validator/getAppStats'
+import { GetAppVersions } from './validator/getAppVersions'
 
 /**
  * The main function for the action.
@@ -18,7 +19,8 @@ export async function run(): Promise<void> {
       new UploadAAb(),
       new UploadApk(),
       new GetAppDetail(),
-      new GetAppStats()
+      new GetAppStats(),
+      new GetAppVersions()
     ]
     for (let i = 0; i < validators.length; i++) {
       const validator = validators[i]

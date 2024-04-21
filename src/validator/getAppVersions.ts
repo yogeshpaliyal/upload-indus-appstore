@@ -5,7 +5,7 @@ import { validateStringParameter } from 'src/utils'
 import { GetAppDetailProps } from './getAppDetail'
 
 
-export class GetAppStats extends IValidator<GetAppDetailProps> {
+export class GetAppVersions extends IValidator<GetAppDetailProps> {
   public type: ActionType = ActionType.GET_APP_VERSIONS
 
   public validateVariables(): GetAppDetailProps {
