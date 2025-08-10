@@ -9347,7 +9347,7 @@ class UploadAAb extends IValidator_1.IValidator {
         formData.append('keyPassword', props.keyPassword);
         formData.append('keystoreAlias', props.keystoreAlias);
         formData.append('keystorePassword', props.keystorePassword);
-        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${props.packageName}`, formData, { headers });
+        const response = await axios.post(`https://developer-api.indusappstore.com/devtools/aab/upgrade/${props.packageName}`, formData, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
