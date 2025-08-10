@@ -31,7 +31,7 @@ export class UploadApk extends IValidator<UploadApkProps> {
 
   public async createAntHitRequest(props: UploadApkProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
     const releaseFiles = await findFilesToUpload(props.apkFile)

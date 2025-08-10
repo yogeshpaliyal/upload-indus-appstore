@@ -21,7 +21,7 @@ export class GetAppVersions extends IValidator<GetAppDetailProps> {
 
   public async createAntHitRequest(props: GetAppDetailProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
     const axios = require('axios')
