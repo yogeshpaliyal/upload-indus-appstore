@@ -46,7 +46,7 @@ export class UploadAAb extends IValidator<UploadAabProps> {
 
   public async createAntHitRequest(props: UploadAabProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
     const signingKey = path.join('signingKey.jks')

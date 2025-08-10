@@ -9328,7 +9328,7 @@ class UploadAAb extends IValidator_1.IValidator {
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, props.signingKeyBase64, 'base64');
