@@ -556,8 +556,8 @@ class OidcClient {
             const res = yield httpclient
                 .getJson(id_token_url)
                 .catch(error => {
-                throw new Error(`Failed to get ID Token. \n 
-        Error Code : ${error.statusCode}\n 
+                throw new Error(`Failed to get ID Token. \n
+        Error Code : ${error.statusCode}\n
         Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -9059,7 +9059,7 @@ class UploadApk extends IValidator_1.IValidator {
         const FormData = __nccwpck_require__(4334);
         const formData = new FormData();
         formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
-        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/apk/upgrade/${props.packageName}`, formData, { headers });
+        const response = await axios.post(`https://developer-api.indusappstore.com/devtools/apk/upgrade/${props.packageName}`, formData, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
@@ -9121,7 +9121,7 @@ class GetAppDetail extends IValidator_1.IValidator {
             Authorization: `Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/details/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
@@ -9184,7 +9184,7 @@ class GetAppStats extends IValidator_1.IValidator {
             Authorization: `Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/stats/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/stats/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
@@ -9247,7 +9247,7 @@ class GetAppVersions extends IValidator_1.IValidator {
             Authorization: `Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/versions/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/versions/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
@@ -10626,7 +10626,7 @@ function buildURL(url, params, options) {
   if (!params) {
     return url;
   }
-  
+
   const _encode = options && options.encode || encode;
 
   const serializeFn = options && options.serialize;
@@ -11963,7 +11963,7 @@ class ZlibHeaderTransformStream extends stream__default["default"].Transform {
       if (chunk[0] !== 120) { // Hex: 78
         const header = Buffer.alloc(2);
         header[0] = 120; // Hex: 78
-        header[1] = 156; // Hex: 9C 
+        header[1] = 156; // Hex: 9C
         this.push(header, encoding);
       }
     }
@@ -13854,7 +13854,7 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -13868,7 +13868,7 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -13877,16 +13877,16 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
