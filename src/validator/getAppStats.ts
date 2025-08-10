@@ -4,38 +4,36 @@ import * as core from '@actions/core'
 import { validateStringParameter } from 'src/utils'
 import { GetAppDetailProps } from './getAppDetail'
 
-
 export class GetAppStats extends IValidator<GetAppDetailProps> {
   public type: ActionType = ActionType.GET_APP_STATS
 
   public validateVariables(): GetAppDetailProps {
     const data = super.validateVariables()
     const packageName: string = core.getInput('packageName')
-   
-    validateStringParameter('packageName', packageName);
+
+    validateStringParameter('packageName', packageName)
 
     return {
-    ...data,
-      packageName,
+      ...data,
+      packageName
     }
   }
-  
+
   public async createAntHitRequest(props: GetAppDetailProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
-
     const axios = require('axios')
-    
+
     const response = await axios.get(
-      `https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/stats/${props.packageName}`,
+      `https://developer-api.indusappstore.com/devtools/app/stats/${props.packageName}`,
       { headers }
     )
     console.log(response.statusText)
     console.log(response.status)
     console.log(response.data)
     core.debug(response.data)
-    core.setOutput("result", response.data)
+    core.setOutput('result', response.data)
   }
 }

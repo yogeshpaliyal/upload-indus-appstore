@@ -9046,7 +9046,7 @@ class UploadApk extends IValidator_1.IValidator {
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const releaseFiles = await (0, io_utils_1.findFilesToUpload)(props.apkFile);
         core.debug(`Release files: ${JSON.stringify(releaseFiles)}`);
@@ -9059,7 +9059,7 @@ class UploadApk extends IValidator_1.IValidator {
         const FormData = __nccwpck_require__(4334);
         const formData = new FormData();
         formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]));
-        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/apk/upgrade/${props.packageName}`, formData, { headers });
+        const response = await axios.post(`https://developer-api.indusappstore.com/devtools/apk/upgrade/${props.packageName}`, formData, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
@@ -9113,20 +9113,20 @@ class GetAppDetail extends IValidator_1.IValidator {
         (0, utils_1.validateStringParameter)('packageName', packageName);
         return {
             ...data,
-            packageName,
+            packageName
         };
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/details/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/details/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
         core.debug(response.data);
-        core.setOutput("result", response.data);
+        core.setOutput('result', response.data);
     }
 }
 exports.GetAppDetail = GetAppDetail;
@@ -9176,20 +9176,20 @@ class GetAppStats extends IValidator_1.IValidator {
         (0, utils_1.validateStringParameter)('packageName', packageName);
         return {
             ...data,
-            packageName,
+            packageName
         };
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/stats/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/stats/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
         core.debug(response.data);
-        core.setOutput("result", response.data);
+        core.setOutput('result', response.data);
     }
 }
 exports.GetAppStats = GetAppStats;
@@ -9239,20 +9239,20 @@ class GetAppVersions extends IValidator_1.IValidator {
         (0, utils_1.validateStringParameter)('packageName', packageName);
         return {
             ...data,
-            packageName,
+            packageName
         };
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const axios = __nccwpck_require__(8757);
-        const response = await axios.get(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/app/versions/${props.packageName}`, { headers });
+        const response = await axios.get(`https://developer-api.indusappstore.com/devtools/app/versions/${props.packageName}`, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);
         core.debug(response.data);
-        core.setOutput("result", response.data);
+        core.setOutput('result', response.data);
     }
 }
 exports.GetAppVersions = GetAppVersions;
@@ -9328,7 +9328,7 @@ class UploadAAb extends IValidator_1.IValidator {
     }
     async createAntHitRequest(props) {
         const headers = {
-            Authorization: `Bearer ${props.apiKey}`
+            Authorization: `O-Bearer ${props.apiKey}`
         };
         const signingKey = path_1.default.join('signingKey.jks');
         fs.writeFileSync(signingKey, props.signingKeyBase64, 'base64');
@@ -9347,7 +9347,7 @@ class UploadAAb extends IValidator_1.IValidator {
         formData.append('keyPassword', props.keyPassword);
         formData.append('keystoreAlias', props.keystoreAlias);
         formData.append('keystorePassword', props.keystorePassword);
-        const response = await axios.post(`https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${props.packageName}`, formData, { headers });
+        const response = await axios.post(`https://developer-api.indusappstore.com/devtools/aab/upgrade/${props.packageName}`, formData, { headers });
         console.log(response.statusText);
         console.log(response.status);
         console.log(response.data);

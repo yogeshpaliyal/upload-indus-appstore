@@ -18,20 +18,20 @@ export class UploadApk extends IValidator<UploadApkProps> {
     const data = super.validateVariables()
     const packageName: string = core.getInput('packageName')
     const apkFile: string = core.getInput('apkFile')
-   
-    validateStringParameter('packageName', packageName);
-    validateStringParameter('apkFile', apkFile);
+
+    validateStringParameter('packageName', packageName)
+    validateStringParameter('apkFile', apkFile)
 
     return {
-    ...data,
+      ...data,
       packageName,
       apkFile
     }
   }
-  
+
   public async createAntHitRequest(props: UploadApkProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
     const releaseFiles = await findFilesToUpload(props.apkFile)
@@ -48,9 +48,9 @@ export class UploadApk extends IValidator<UploadApkProps> {
     const FormData = require('form-data')
     const formData = new FormData()
     formData.append('file', fs.createReadStream(releaseFiles.filesToUpload[0]))
-    
+
     const response = await axios.post(
-      `https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/apk/upgrade/${props.packageName}`,
+      `https://developer-api.indusappstore.com/devtools/apk/upgrade/${props.packageName}`,
       formData,
       { headers }
     )

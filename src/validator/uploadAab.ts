@@ -26,15 +26,15 @@ export class UploadAAb extends IValidator<UploadAabProps> {
     const keyPassword: string = core.getInput('keyPassword')
     const keystoreAlias: string = core.getInput('keystoreAlias')
     const keystorePassword: string = core.getInput('keystorePassword')
-    validateStringParameter('packageName', packageName);
-    validateStringParameter('aabFile', aabFile);
-    validateStringParameter('signingKeyBase64', signingKeyBase64);
-    validateStringParameter('keyPassword', keyPassword);
-    validateStringParameter('keystoreAlias', keystoreAlias);
-    validateStringParameter('keystorePassword', keystorePassword);
+    validateStringParameter('packageName', packageName)
+    validateStringParameter('aabFile', aabFile)
+    validateStringParameter('signingKeyBase64', signingKeyBase64)
+    validateStringParameter('keyPassword', keyPassword)
+    validateStringParameter('keystoreAlias', keystoreAlias)
+    validateStringParameter('keystorePassword', keystorePassword)
 
     return {
-    ...data,
+      ...data,
       packageName,
       aabFile,
       signingKeyBase64,
@@ -43,10 +43,10 @@ export class UploadAAb extends IValidator<UploadAabProps> {
       keystorePassword
     }
   }
-  
+
   public async createAntHitRequest(props: UploadAabProps) {
     const headers = {
-      Authorization: `Bearer ${props.apiKey}`
+      Authorization: `O-Bearer ${props.apiKey}`
     }
 
     const signingKey = path.join('signingKey.jks')
@@ -72,7 +72,7 @@ export class UploadAAb extends IValidator<UploadAabProps> {
     formData.append('keystorePassword', props.keystorePassword)
 
     const response = await axios.post(
-      `https://developer-api.indusappstore.com/apis/indus-developerdashboard-service/devtools/aab/upgrade/${props.packageName}`,
+      `https://developer-api.indusappstore.com/devtools/aab/upgrade/${props.packageName}`,
       formData,
       { headers }
     )
